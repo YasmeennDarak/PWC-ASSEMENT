@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Map</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.9/"></script>
+<style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0 ;
+      position:fixed;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    #map{
+       
+    padding: 1px;
+    margin: 0;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2cfb;
+    text-align: center;
+}
+  
+  </style>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/widgets/BasemapGallery",
+      "esri/widgets/Expand",
+      "esri/widgets/Search"
+    ],
+
+     function(Map,MapView,BasemapGallery,Expand,Search)
+     {               
+        var map = new Map({
+            basemap: "topo",
+        });
+        
+        var view=new MapView({
+            container:"viewDiv",
+            center: [35.94503,31.955219],
+            zoom:6,
+            map:map
+        });
+        
+        var basemapGallery = new BasemapGallery({
+            view: view,
+            source: { 
+                portal: {
+                    url: "https://www.arcgis.com",
+                }
+            }
+        });
+        
+        var search = new Search({
+           view:view 
+        });
+        
+        var searchExpand = new Expand({
+            content:search
+        })
+    
+        var baseMapExpand =new Expand ({content: basemapGallery});
+        view.ui.add(baseMapExpand,"top-left");
+        view.ui.add(searchExpand,"top-right");
+
+
+        
+});
+      
+  </script> 
+
+</head>
+
+<body>
+
+<div id="map">
+    <p>MAP</p>
+</div>
+
+ <div id="viewDiv"></div>
+
+</body>
+
+</html>
